@@ -1,0 +1,64 @@
+#pragma once
+
+#include "sdkconfig.h"
+
+/* I2C Defaults */
+#ifndef CONFIG_WAND_I2C_SDA_GPIO
+#define CONFIG_WAND_I2C_SDA_GPIO 5 // D4 on XIAO ESP32S3
+#endif
+
+#ifndef CONFIG_WAND_I2C_SCL_GPIO
+#define CONFIG_WAND_I2C_SCL_GPIO 6 // D5 on XIAO ESP32S3
+#endif
+
+#ifndef CONFIG_WAND_I2C_FREQ_HZ
+#define CONFIG_WAND_I2C_FREQ_HZ 400000
+#endif
+
+#ifndef CONFIG_WAND_MPU6050_I2C_ADDR
+#define CONFIG_WAND_MPU6050_I2C_ADDR 0x68
+#endif
+
+/* Sampling Defaults */
+#ifndef CONFIG_WAND_SAMPLE_RATE_HZ
+#define CONFIG_WAND_SAMPLE_RATE_HZ 50
+#endif
+
+#ifndef CONFIG_WAND_CALIBRATION_SAMPLES
+#define CONFIG_WAND_CALIBRATION_SAMPLES 200
+#endif
+
+/* WS2812B Defaults */
+#ifndef CONFIG_WAND_WS2812_ENABLED
+#define CONFIG_WAND_WS2812_ENABLED 0
+#endif
+
+#ifndef CONFIG_WAND_WS2812_GPIO
+#define CONFIG_WAND_WS2812_GPIO 4 // D3 on XIAO ESP32S3
+#endif
+
+#ifndef CONFIG_WAND_WS2812_BRIGHTNESS
+#define CONFIG_WAND_WS2812_BRIGHTNESS 30
+#endif
+
+/* Telemetry & FreeRTOS Defaults */
+#ifndef CONFIG_WAND_QUEUE_SIZE
+#define CONFIG_WAND_QUEUE_SIZE 32
+#endif
+
+#ifndef CONFIG_WAND_TELEMETRY_INCLUDE_TIMESTAMP
+#define CONFIG_WAND_TELEMETRY_INCLUDE_TIMESTAMP 0
+#endif
+
+/* FreeRTOS Task Priorities & Stack Sizes */
+#define SENSOR_TASK_PRIORITY       10
+#define SENSOR_TASK_STACK_SIZE     4096
+#define SENSOR_TASK_CORE_ID        1
+
+#define TELEMETRY_TASK_PRIORITY    4
+#define TELEMETRY_TASK_STACK_SIZE  4096
+#define TELEMETRY_TASK_CORE_ID     0
+
+#define LED_TASK_PRIORITY          2
+#define LED_TASK_STACK_SIZE        3072
+#define LED_TASK_CORE_ID           0

@@ -1,0 +1,98 @@
+menu "Magic Wand Configuration"
+
+    menu "I2C Configuration"
+        config WAND_I2C_SDA_GPIO
+            int "I2C SDA GPIO number"
+            default 5
+            help
+                GPIO pin connected to MPU6050 SDA. Default is 5 (D4 on XIAO ESP32S3).
+
+        config WAND_I2C_SCL_GPIO
+            int "I2C SCL GPIO number"
+            default 6
+            help
+                GPIO pin connected to MPU6050 SCL. Default is 6 (D5 on XIAO ESP32S3).
+
+        config WAND_I2C_FREQ_HZ
+            int "I2C Clock Frequency (Hz)"
+            default 400000
+            help
+                I2C bus clock speed in Hz (typically 100000 or 400000).
+
+        config WAND_MPU6050_I2C_ADDR
+            hex "MPU6050 I2C Address"
+            default 0x68
+            help
+                I2C address of MPU6050 (0x68 if AD0 is GND, 0x69 if AD0 is VCC).
+    endmenu
+
+    menu "Sensor & Sampling Configuration"
+        config WAND_SAMPLE_RATE_HZ
+            int "Sampling frequency in Hz"
+            default 50
+            range 10 200
+            help
+                Frequency at which IMU samples are acquired and streamed to Edge Impulse (50 or 100 Hz recommended).
+
+        config WAND_ACCEL_FS_RANGE
+            int "Accelerometer Full Scale Range (g)"
+            default 8
+            range 2 16
+            help
+                MPU6050 accelerometer full-scale range: 2 (±2g), 4 (±4g), 8 (±8g), or 16 (±16g).
+                ±8g or ±16g is recommended for dynamic wand flick gestures.
+
+        config WAND_GYRO_FS_RANGE
+            int "Gyroscope Full Scale Range (dps)"
+            default 2000
+            range 250 2000
+            help
+                MPU6050 gyroscope full-scale range: 250, 500, 1000, or 2000 deg/s.
+                2000 dps is recommended for wand movements.
+
+        config WAND_CALIBRATION_SAMPLES
+            int "Number of calibration samples"
+            default 200
+            help
+                Number of samples averaged during stationary startup to zero out gyro drift.
+    endmenu
+
+    menu "WS2812B RGB LED Configuration"
+        config WAND_WS2812_ENABLED
+            bool "Enable WS2812B status LED"
+            default y
+            help
+                Enable visual feedback using WS2812B LED.
+
+        config WAND_WS2812_GPIO
+            int "WS2812B Data GPIO"
+            default 4
+            depends on WAND_WS2812_ENABLED
+            help
+                GPIO pin connected to WS2812B DIN (D3 on XIAO ESP32S3).
+
+        config WAND_WS2812_BRIGHTNESS
+            int "LED Brightness (0-255)"
+            default 30
+            range 1 255
+            depends on WAND_WS2812_ENABLED
+            help
+                WS2812B brightness level. Keep moderate to save current.
+    endmenu
+
+    menu "Telemetry Configuration"
+        config WAND_TELEMETRY_INCLUDE_TIMESTAMP
+            bool "Include timestamp (ms) as first column"
+            default n
+            help
+                If enabled, outputs 'timestamp,accX,accY,accZ,gyrX,gyrY,gyrZ' (required for direct CSV upload - Option B).
+                If disabled (default), outputs 'accX,accY,accZ,gyrX,gyrY,gyrZ' (standard format for edge-impulse-data-forwarder - Option A).
+
+        config WAND_QUEUE_SIZE
+            int "IMU FreeRTOS Queue Capacity"
+            default 32
+            help
+                Maximum number of sensor frames queued between acquisition and telemetry tasks.
+    endmenu
+
+endmenu
