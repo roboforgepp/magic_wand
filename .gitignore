@@ -1,0 +1,51 @@
+# ESP-IDF
+build/
+**/build/
+sdkconfig
+sdkconfig.old
+**/sdkconfig
+**/sdkconfig.old
+managed_components/
+**/managed_components/
+dependencies.lock
+**/dependencies.lock
+
+# Language server & build files
+.clangd
+.clangd/
+compile_commands.json
+**/compile_commands.json
+.ccls-cache/
+
+# IDE & Editors
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Python (tools, virtual environments, training scripts)
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+env/
+
+# OS specific files
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Logs & temp files
+*.log
+*~
+*.swp
+*.swo
+*.bak
+*.tmp
